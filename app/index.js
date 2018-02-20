@@ -6,12 +6,14 @@ import CurrencyList from './screens/CurrencyList';
 
 EStyleSheet.build({
   $primaryBlue: '#4f6d7a',
+
   $white: '#ffffff',
+  $lightGray: '#F0F0F0',
   $border: '#E2E2E2',
   $inputText: '#797979',
-  $lightGray: '#F0F0F0',
+  $darkText: '#343434',
 
-  $outline: 1,
+  // $outline: 1,
 });
 
 export default () => <CurrencyList />;
