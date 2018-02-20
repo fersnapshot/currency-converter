@@ -11,15 +11,22 @@ type Props = {
   selected: boolean,
   checkmark: boolean,
   visible: boolean,
+  customIcon: ?React.Node,
 };
 
 const ListItem = ({
-  text, onPress, selected = false, checkmark = true, visible = true,
+  text,
+  onPress,
+  selected = false,
+  checkmark = true,
+  visible = true,
+  customIcon = null,
 }: Props) => (
   <TouchableHighlight onPress={onPress} underlayColor={styles.$underlayColor}>
     <View style={styles.row}>
       <Text style={styles.text}>{text}</Text>
       {selected ? <Icon checkmark={checkmark} visible={visible} /> : <Icon />}
+      {customIcon}
     </View>
   </TouchableHighlight>
 );
