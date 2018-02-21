@@ -6,12 +6,16 @@ import styles from './styles';
 type Props = {
   checkmark?: boolean,
   visible?: boolean,
+  color?: string,
 };
 
-const Icon = ({ checkmark, visible }: Props) => {
+const Icon = ({ checkmark, visible, color }: Props) => {
   const iconStyles = [styles.icon];
   if (visible) {
     iconStyles.push(styles.iconVisible);
+  }
+  if (color) {
+    iconStyles.push({ backgroundColor: color });
   }
 
   return (
@@ -30,6 +34,7 @@ const Icon = ({ checkmark, visible }: Props) => {
 Icon.defaultProps = {
   checkmark: false,
   visible: false,
+  color: '',
 };
 
 export default Icon;
