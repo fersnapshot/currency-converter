@@ -1,46 +1,58 @@
 import * as React from 'react';
-import { FlatList, View, StatusBar } from 'react-native';
+import { ScrollView, StatusBar } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { ListItem, Separator } from '../components/List';
-import themes from '../data/themes';
 
-type Color = {
-  name: string,
-  color: string,
-};
+const styles = EStyleSheet.create({
+  $blue: '$primaryBlue',
+  $orange: '$primaryOrange',
+  $green: '$primaryGreen',
+  $purple: '$primaryPurple',
+});
 
-type State = {
-  colorSelected: Color,
-};
-
-class Themes extends React.Component<{}, State> {
-  state = {
-    colorSelected: themes[0],
-  };
-
-  handlePress = (color: Color) => {
-    this.setState({ colorSelected: color });
+class Themes extends React.Component<{}> {
+  handlePress = (color: string) => {
+    console.log('press theme', color);
   };
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <ScrollView>
         <StatusBar translucent={false} barStyle="default" />
-        <FlatList
-          data={themes}
-          extraData={this.state}
-          keyExtractor={item => item.color}
-          ItemSeparatorComponent={Separator}
-          renderItem={({ item }) => (
-            <ListItem
-              text={item.name}
-              selected={item.color === this.state.colorSelected.color}
-              onPress={() => this.handlePress(item)}
-              color={item.color}
-            />
-          )}
+        <ListItem
+          text="Blue"
+          onPress={() => this.handlePress(styles.$blue)}
+          selected
+          checkmark={false}
+          iconBackground={styles.$blue}
         />
-      </View>
+        <Separator />
+        <ListItem
+          text="Orange"
+          onPress={() => this.handlePress(styles.$orange)}
+          selected
+          checkmark={false}
+          iconBackground={styles.$orange}
+        />
+        <Separator />
+        <ListItem
+          text="Green"
+          onPress={() => this.handlePress(styles.$green)}
+          selected
+          checkmark={false}
+          iconBackground={styles.$green}
+        />
+        <Separator />
+        <ListItem
+          text="Purple"
+          onPress={() => this.handlePress(styles.$purple)}
+          selected
+          checkmark={false}
+          iconBackground={styles.$purple}
+        />
+        <Separator />
+      </ScrollView>
     );
   }
 }
