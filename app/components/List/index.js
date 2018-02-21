@@ -1,4 +1,3 @@
-// @flow
 import ListItem from './ListItem';
 import Separator from './Separator';
 import Icon from './Icon';

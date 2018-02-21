@@ -1,4 +1,3 @@
-// @flow
 import * as React from 'react';
 import { ScrollView, StatusBar, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // eslint-disable-line

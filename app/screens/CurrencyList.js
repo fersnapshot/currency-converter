@@ -1,4 +1,3 @@
-// @flow
 import * as React from 'react';
 import { FlatList, View, StatusBar } from 'react-native';
 

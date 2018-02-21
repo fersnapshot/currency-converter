@@ -1,4 +1,3 @@
-// @flow
 import * as React from 'react';
 import { StatusBar, KeyboardAvoidingView } from 'react-native';
 
@@ -47,7 +46,7 @@ export default class Home extends React.Component<{}> {
           <InputWithButton
             buttonText={TEMP_BASE_CURRENCY}
             onPress={this.handlePressBaseCurrency}
-            defaultValue={TEMP_BASE_PRICE}
+            value={TEMP_BASE_PRICE}
             keyboardType="numeric"
             onChangeText={this.handleTextChange}
           />

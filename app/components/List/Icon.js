@@ -1,12 +1,11 @@
-// @flow
 import * as React from 'react';
 import { View, Image } from 'react-native';
 
 import styles from './styles';
 
 type Props = {
-  checkmark: boolean,
-  visible: boolean,
+  checkmark?: boolean,
+  visible?: boolean,
 };
 
 const Icon = ({ checkmark, visible }: Props) => {
@@ -26,6 +25,11 @@ const Icon = ({ checkmark, visible }: Props) => {
       )}
     </View>
   );
+};
+
+Icon.defaultProps = {
+  checkmark: false,
+  visible: false,
 };
 
 export default Icon;

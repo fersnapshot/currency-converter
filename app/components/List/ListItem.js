@@ -1,4 +1,3 @@
-// @flow
 import * as React from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 
@@ -8,19 +7,14 @@ import Icon from './Icon';
 type Props = {
   text: string,
   onPress: Function,
-  selected: boolean,
-  checkmark: boolean,
-  visible: boolean,
-  customIcon: ?React.Node,
+  selected?: boolean,
+  checkmark?: boolean,
+  visible?: boolean,
+  customIcon?: React.Node,
 };
 
 const ListItem = ({
-  text,
-  onPress,
-  selected = false,
-  checkmark = true,
-  visible = true,
-  customIcon = null,
+  text, onPress, selected, checkmark, visible, customIcon,
 }: Props) => (
   <TouchableHighlight onPress={onPress} underlayColor={styles.$underlayColor}>
     <View style={styles.row}>
@@ -30,5 +24,12 @@ const ListItem = ({
     </View>
   </TouchableHighlight>
 );
+
+ListItem.defaultProps = {
+  selected: false,
+  checkmark: true,
+  visible: true,
+  customIcon: null,
+};
 
 export default ListItem;

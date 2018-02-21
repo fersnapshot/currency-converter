@@ -1,4 +1,3 @@
-// @flow
 import * as React from 'react';
 import { View, Text, Keyboard, Animated, StyleSheet, Platform } from 'react-native';
 
@@ -7,8 +6,8 @@ import styles from './styles';
 const ANIMATION_DURATION = 250;
 
 type State = {
-  containerImageWidth: number,
-  imageWidth: number,
+  containerImageWidth: any,
+  imageWidth: any,
 };
 class Logo extends React.Component<{}, State> {
   state = {
