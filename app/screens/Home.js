@@ -15,13 +15,17 @@ const TEMP_QUOTE_PRICE = '79.74';
 const TEMP_CONVERSION_RATE = 0.7974;
 const TEMP_CONVERSION_DATE = new Date();
 
-export default class Home extends React.Component<{}> {
+type Props = {
+  navigation: Object,
+};
+
+export default class Home extends React.Component<Props> {
   handlePressBaseCurrency = () => {
-    console.log('press base');
+    this.props.navigation.navigate('CurrencyList', { title: 'Base Currency' });
   };
 
   handlePressQuoteCurrency = () => {
-    console.log('press quote');
+    this.props.navigation.navigate('CurrencyList', { title: 'Quote Currency' });
   };
 
   handleTextChange = (text: string) => {

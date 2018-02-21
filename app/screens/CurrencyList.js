@@ -4,17 +4,22 @@ import { FlatList, View, StatusBar } from 'react-native';
 import { ListItem, Separator } from '../components/List';
 import currencies from '../data/currencies';
 
+type Props = {
+  navigation: Object,
+};
+
 type State = {
   itemSelected: string,
 };
 
-class CurrencyList extends React.Component<{}, State> {
+class CurrencyList extends React.Component<Props, State> {
   state = {
     itemSelected: 'CAD',
   };
 
   handlePress = (item: string) => {
     this.setState({ itemSelected: item });
+    this.props.navigation.goBack(null);
   };
 
   render() {
