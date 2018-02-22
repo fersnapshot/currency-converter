@@ -8,6 +8,8 @@ import { ClearButton } from '../components/Buttons';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
 
+import { swapCurrency, changeCurrencyAmount } from '../actions/currencies';
+
 const TEMP_BASE_CURRENCY = 'USD';
 const TEMP_QUOTE_CURRENCY = 'GBP';
 const TEMP_BASE_PRICE = '100';
@@ -28,12 +30,14 @@ export default class Home extends React.Component<Props> {
     this.props.navigation.navigate('CurrencyList', { title: 'Quote Currency' });
   };
 
-  handleTextChange = (text: string) => {
-    console.log('change text', text);
+  handleTextChange = (amount: string) => {
+    // TODO: hacer esto con this.props.dispatch
+    console.log(changeCurrencyAmount(amount));
   };
 
   handleSwapCurrency = () => {
-    console.log('press swap currency');
+    // TODO: hacer esto con this.props.dispatch
+    console.log(swapCurrency());
   };
 
   handleOptionsPress = () => {
