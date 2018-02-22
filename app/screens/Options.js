@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ScrollView, StatusBar, Platform } from 'react-native';
+import { ScrollView, StatusBar, Platform, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // eslint-disable-line
 
 import { ListItem, Separator } from '../components/List';
@@ -19,6 +19,7 @@ class Options extends React.Component<Props> {
 
   handleSitePress = () => {
     console.log('press site');
+    Linking.openURL('http://fixer.io/').catch(err => alert(`Ha ocurrido un error: ${err}`));
   };
 
   render() {
