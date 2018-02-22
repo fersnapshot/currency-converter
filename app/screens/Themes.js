@@ -11,9 +11,14 @@ const styles = EStyleSheet.create({
   $purple: '$primaryPurple',
 });
 
-class Themes extends React.Component<{}> {
+type Props = {
+  navigation: Object,
+};
+
+class Themes extends React.Component<Props> {
   handlePress = (color: string) => {
     console.log('press theme', color);
+    this.props.navigation.goBack();
   };
 
   render() {

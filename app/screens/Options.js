@@ -8,9 +8,13 @@ const ICON_PREFIX = Platform.OS === 'ios' ? 'ios' : 'md';
 const ICON_COLOR = '#868686';
 const ICON_SIZE = 23;
 
-class Options extends React.Component<{}> {
+type Props = {
+  navigation: Object,
+};
+
+class Options extends React.Component<Props> {
   handleThemePress = () => {
-    console.log('press theme');
+    this.props.navigation.navigate('Themes');
   };
 
   handleSitePress = () => {
