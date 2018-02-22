@@ -3,6 +3,7 @@ import { ScrollView, StatusBar, Platform, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // eslint-disable-line
 
 import { ListItem, Separator } from '../components/List';
+import { connectAlert } from '../components/Alert';
 
 const ICON_PREFIX = Platform.OS === 'ios' ? 'ios' : 'md';
 const ICON_COLOR = '#868686';
@@ -10,6 +11,7 @@ const ICON_SIZE = 23;
 
 type Props = {
   navigation: Object,
+  alertWithType: Function,
 };
 
 class Options extends React.Component<Props> {
@@ -18,8 +20,8 @@ class Options extends React.Component<Props> {
   };
 
   handleSitePress = () => {
-    console.log('press site');
-    Linking.openURL('http://fixer.io/').catch(err => alert(`Ha ocurrido un error: ${err}`));
+    Linking.openURL('http://fixer.io/').catch(err =>
+      this.props.alertWithType('error', '¡Errorasso!', err.message));
   };
 
   render() {
@@ -45,4 +47,4 @@ class Options extends React.Component<Props> {
   }
 }
 
-export default Options;
+export default connectAlert(Options);
