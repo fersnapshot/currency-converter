@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { StatusBar, KeyboardAvoidingView } from 'react-native';
+import { connect } from 'react-redux';
 
 import { Container } from '../components/Container';
 import { Logo } from '../components/Logo';
@@ -19,9 +20,14 @@ const TEMP_CONVERSION_DATE = new Date();
 
 type Props = {
   navigation: Object,
+  swapCurrency: Function,
+  changeCurrencyAmount: Function,
+  baseCurrency: string,
+  quoteCurrency: string,
+  amount: number,
 };
 
-export default class Home extends React.Component<Props> {
+class Home extends React.Component<Props> {
   handlePressBaseCurrency = () => {
     this.props.navigation.navigate('CurrencyList', { title: 'Base Currency' });
   };
@@ -31,13 +37,11 @@ export default class Home extends React.Component<Props> {
   };
 
   handleTextChange = (amount: string) => {
-    // TODO: hacer esto con this.props.dispatch
-    console.log(changeCurrencyAmount(amount));
+    this.props.changeCurrencyAmount(amount);
   };
 
   handleSwapCurrency = () => {
-    // TODO: hacer esto con this.props.dispatch
-    console.log(swapCurrency());
+    this.props.swapCurrency();
   };
 
   handleOptionsPress = () => {
@@ -45,6 +49,8 @@ export default class Home extends React.Component<Props> {
   };
 
   render() {
+    const { baseCurrency, quoteCurrency, amount } = this.props;
+
     return (
       <Container>
         <StatusBar translucent={false} barStyle="light-content" />
@@ -52,22 +58,22 @@ export default class Home extends React.Component<Props> {
         <KeyboardAvoidingView behavior="padding" style={{ alignItems: 'center' }}>
           <Logo />
           <InputWithButton
-            buttonText={TEMP_BASE_CURRENCY}
+            buttonText={baseCurrency}
             onPress={this.handlePressBaseCurrency}
-            value={TEMP_BASE_PRICE}
+            value={amount.toString()}
             keyboardType="numeric"
             onChangeText={this.handleTextChange}
           />
           <InputWithButton
-            buttonText={TEMP_QUOTE_CURRENCY}
+            buttonText={quoteCurrency}
             onPress={this.handlePressQuoteCurrency}
             editable={false}
             value={TEMP_QUOTE_PRICE}
           />
           <LastConverted
             date={TEMP_CONVERSION_DATE}
-            base={TEMP_BASE_CURRENCY}
-            quote={TEMP_QUOTE_CURRENCY}
+            base={baseCurrency}
+            quote={quoteCurrency}
             conversionRate={TEMP_CONVERSION_RATE}
           />
           <ClearButton text="Reverse Currencies" onPress={this.handleSwapCurrency} />
@@ -76,3 +82,15 @@ export default class Home extends React.Component<Props> {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    baseCurrency: state.currencies.baseCurrency,
+    quoteCurrency: state.currencies.quoteCurrency,
+    amount: state.currencies.amount,
+  };
+}
+export default connect(mapStateToProps, {
+  swapCurrency,
+  changeCurrencyAmount,
+})(Home);
