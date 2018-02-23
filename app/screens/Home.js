@@ -11,13 +11,6 @@ import { Header } from '../components/Header';
 
 import { swapCurrency, changeCurrencyAmount } from '../actions/currencies';
 
-const TEMP_BASE_CURRENCY = 'USD';
-const TEMP_QUOTE_CURRENCY = 'GBP';
-const TEMP_BASE_PRICE = '100';
-const TEMP_QUOTE_PRICE = '79.74';
-const TEMP_CONVERSION_RATE = 0.7974;
-const TEMP_CONVERSION_DATE = new Date();
-
 type Props = {
   navigation: Object,
   swapCurrency: Function,
@@ -25,6 +18,9 @@ type Props = {
   baseCurrency: string,
   quoteCurrency: string,
   amount: number,
+  conversionRate: number,
+  isFetching: boolean,
+  lastConvertedDate: Date,
 };
 
 class Home extends React.Component<Props> {
@@ -49,7 +45,19 @@ class Home extends React.Component<Props> {
   };
 
   render() {
-    const { baseCurrency, quoteCurrency, amount } = this.props;
+    const {
+      baseCurrency,
+      quoteCurrency,
+      amount,
+      conversionRate,
+      isFetching,
+      lastConvertedDate,
+    } = this.props;
+
+    let quotePrice = (amount * conversionRate).toFixed(2);
+    if (isFetching) {
+      quotePrice = '...';
+    }
 
     return (
       <Container>
@@ -68,13 +76,13 @@ class Home extends React.Component<Props> {
             buttonText={quoteCurrency}
             onPress={this.handlePressQuoteCurrency}
             editable={false}
-            value={TEMP_QUOTE_PRICE}
+            value={quotePrice}
           />
           <LastConverted
-            date={TEMP_CONVERSION_DATE}
+            date={lastConvertedDate}
             base={baseCurrency}
             quote={quoteCurrency}
-            conversionRate={TEMP_CONVERSION_RATE}
+            conversionRate={conversionRate}
           />
           <ClearButton text="Reverse Currencies" onPress={this.handleSwapCurrency} />
         </KeyboardAvoidingView>
@@ -84,12 +92,25 @@ class Home extends React.Component<Props> {
 }
 
 function mapStateToProps(state) {
+  const { baseCurrency, quoteCurrency } = state.currencies;
+  const conversionSelector = state.currencies.conversions[baseCurrency] || {};
+  const rates = conversionSelector.rates || {};
+  const conversionRate = rates[quoteCurrency] || 0;
+  const isFetching = conversionSelector.isFetching;
+  const lastConvertedDate = conversionSelector.date
+    ? new Date(conversionSelector.date)
+    : new Date();
+
   return {
-    baseCurrency: state.currencies.baseCurrency,
-    quoteCurrency: state.currencies.quoteCurrency,
+    baseCurrency,
+    quoteCurrency,
     amount: state.currencies.amount,
+    conversionRate,
+    isFetching,
+    lastConvertedDate,
   };
 }
+
 export default connect(mapStateToProps, {
   swapCurrency,
   changeCurrencyAmount,
