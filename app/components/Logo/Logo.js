@@ -5,11 +5,15 @@ import styles from './styles';
 
 const ANIMATION_DURATION = 250;
 
+type Props = {
+  tintColor?: string,
+};
+
 type State = {
   containerImageWidth: any,
   imageWidth: any,
 };
-class Logo extends React.Component<{}, State> {
+class Logo extends React.Component<Props, State> {
   state = {
     containerImageWidth: new Animated.Value(styles.$largeContainerSize),
     imageWidth: new Animated.Value(styles.$largeImageSize),
@@ -60,12 +64,13 @@ class Logo extends React.Component<{}, State> {
 
   render() {
     const { containerImageWidth, imageWidth } = this.state;
+    const { tintColor } = this.props;
 
     const containerImageStyles = [
       styles.containerImage,
       { width: containerImageWidth, height: containerImageWidth },
     ];
-    const imageStyles = [styles.logo, { width: imageWidth }];
+    const imageStyles = [styles.logo, { width: imageWidth }, tintColor ? { tintColor } : null];
 
     return (
       <View style={styles.container}>

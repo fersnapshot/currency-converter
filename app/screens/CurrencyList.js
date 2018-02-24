@@ -12,6 +12,7 @@ type Props = {
   changeQuoteCurrency: Function,
   baseCurrency: string,
   quoteCurrency: string,
+  primaryColor: string,
 };
 
 class CurrencyList extends React.Component<Props> {
@@ -44,6 +45,7 @@ class CurrencyList extends React.Component<Props> {
               text={item}
               selected={item === itemSelected}
               onPress={() => this.handlePress(item)}
+              iconBackground={this.props.primaryColor}
             />
           )}
         />
@@ -55,6 +57,7 @@ class CurrencyList extends React.Component<Props> {
 const mapStateToProps = state => ({
   baseCurrency: state.currencies.baseCurrency,
   quoteCurrency: state.currencies.quoteCurrency,
+  primaryColor: state.themes.primaryColor,
 });
 
 export default connect(mapStateToProps, {

@@ -8,12 +8,12 @@ import Navigator from './config/routes';
 import { AlertProvider } from './components/Alert';
 
 EStyleSheet.build({
-  $primaryBlue: '#4f6d7a',
+  $primaryBlue: '#4F6D7A',
   $primaryOrange: '#D57A66',
   $primaryGreen: '#00BD9D',
   $primaryPurple: '#93768F',
 
-  $white: '#ffffff',
+  $white: '#FFFFFF',
   $lightGray: '#F0F0F0',
   $border: '#E2E2E2',
   $inputText: '#797979',

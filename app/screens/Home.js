@@ -21,6 +21,7 @@ type Props = {
   conversionRate: number,
   isFetching: boolean,
   lastConvertedDate: Date,
+  primaryColor: string,
 };
 
 class Home extends React.Component<Props> {
@@ -52,6 +53,7 @@ class Home extends React.Component<Props> {
       conversionRate,
       isFetching,
       lastConvertedDate,
+      primaryColor,
     } = this.props;
 
     let quotePrice = (amount * conversionRate).toFixed(2);
@@ -60,23 +62,25 @@ class Home extends React.Component<Props> {
     }
 
     return (
-      <Container>
+      <Container backgroundColor={primaryColor}>
         <StatusBar translucent={false} barStyle="light-content" />
         <Header onPress={this.handleOptionsPress} />
         <KeyboardAvoidingView behavior="padding" style={{ alignItems: 'center' }}>
-          <Logo />
+          <Logo tintColor={primaryColor} />
           <InputWithButton
             buttonText={baseCurrency}
             onPress={this.handlePressBaseCurrency}
             value={amount.toString()}
             keyboardType="numeric"
             onChangeText={this.handleTextChange}
+            textColor={primaryColor}
           />
           <InputWithButton
             buttonText={quoteCurrency}
             onPress={this.handlePressQuoteCurrency}
             editable={false}
             value={quotePrice}
+            textColor={primaryColor}
           />
           <LastConverted
             date={lastConvertedDate}
@@ -108,6 +112,7 @@ function mapStateToProps(state) {
     conversionRate,
     isFetching,
     lastConvertedDate,
+    primaryColor: state.themes.primaryColor,
   };
 }
 

@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { ScrollView, StatusBar } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { connect } from 'react-redux';
 
 import { ListItem, Separator } from '../components/List';
+
+import { changePrimaryColor } from '../actions/themes';
 
 const styles = EStyleSheet.create({
   $blue: '$primaryBlue',
@@ -13,15 +16,19 @@ const styles = EStyleSheet.create({
 
 type Props = {
   navigation: Object,
+  changePrimaryColor: Function,
+  colorSelected: string,
 };
 
 class Themes extends React.Component<Props> {
   handlePress = (color: string) => {
-    console.log('press theme', color);
+    this.props.changePrimaryColor(color);
     this.props.navigation.goBack();
   };
 
   render() {
+    const { colorSelected } = this.props;
+
     return (
       <ScrollView>
         <StatusBar translucent={false} barStyle="default" />
@@ -29,7 +36,7 @@ class Themes extends React.Component<Props> {
           text="Blue"
           onPress={() => this.handlePress(styles.$blue)}
           selected
-          checkmark={false}
+          checkmark={colorSelected === styles.$blue}
           iconBackground={styles.$blue}
         />
         <Separator />
@@ -37,7 +44,7 @@ class Themes extends React.Component<Props> {
           text="Orange"
           onPress={() => this.handlePress(styles.$orange)}
           selected
-          checkmark={false}
+          checkmark={colorSelected === styles.$orange}
           iconBackground={styles.$orange}
         />
         <Separator />
@@ -45,7 +52,7 @@ class Themes extends React.Component<Props> {
           text="Green"
           onPress={() => this.handlePress(styles.$green)}
           selected
-          checkmark={false}
+          checkmark={colorSelected === styles.$green}
           iconBackground={styles.$green}
         />
         <Separator />
@@ -53,7 +60,7 @@ class Themes extends React.Component<Props> {
           text="Purple"
           onPress={() => this.handlePress(styles.$purple)}
           selected
-          checkmark={false}
+          checkmark={colorSelected === styles.$purple}
           iconBackground={styles.$purple}
         />
         <Separator />
@@ -62,4 +69,10 @@ class Themes extends React.Component<Props> {
   }
 }
 
-export default Themes;
+const mapStateToProps = state => ({
+  colorSelected: state.themes.primaryColor,
+});
+
+export default connect(mapStateToProps, {
+  changePrimaryColor,
+})(Themes);
