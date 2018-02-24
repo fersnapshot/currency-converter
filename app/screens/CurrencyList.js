@@ -1,28 +1,36 @@
 import * as React from 'react';
 import { FlatList, View, StatusBar } from 'react-native';
+import { connect } from 'react-redux';
 
 import { ListItem, Separator } from '../components/List';
 import currencies from '../data/currencies';
+import { changeBaseCurrency, changeQuoteCurrency } from '../actions/currencies';
 
 type Props = {
   navigation: Object,
+  changeBaseCurrency: Function,
+  changeQuoteCurrency: Function,
+  baseCurrency: string,
+  quoteCurrency: string,
 };
 
-type State = {
-  itemSelected: string,
-};
-
-class CurrencyList extends React.Component<Props, State> {
-  state = {
-    itemSelected: 'CAD',
-  };
-
+class CurrencyList extends React.Component<Props> {
   handlePress = (item: string) => {
-    this.setState({ itemSelected: item });
+    const { type } = this.props.navigation.state.params;
+    if (type === 'base') {
+      this.props.changeBaseCurrency(item);
+    } else if (type === 'quote') {
+      this.props.changeQuoteCurrency(item);
+    }
     this.props.navigation.goBack(null);
   };
 
   render() {
+    const { type } = this.props.navigation.state.params;
+
+    const itemSelected =
+      type === 'base' ? this.props.baseCurrency : type === 'quote' ? this.props.quoteCurrency : '';
+
     return (
       <View style={{ flex: 1 }}>
         <StatusBar translucent={false} barStyle="default" />
@@ -34,7 +42,7 @@ class CurrencyList extends React.Component<Props, State> {
           renderItem={({ item }) => (
             <ListItem
               text={item}
-              selected={item === this.state.itemSelected}
+              selected={item === itemSelected}
               onPress={() => this.handlePress(item)}
             />
           )}
@@ -44,4 +52,12 @@ class CurrencyList extends React.Component<Props, State> {
   }
 }
 
-export default CurrencyList;
+const mapStateToProps = state => ({
+  baseCurrency: state.currencies.baseCurrency,
+  quoteCurrency: state.currencies.quoteCurrency,
+});
+
+export default connect(mapStateToProps, {
+  changeBaseCurrency,
+  changeQuoteCurrency,
+})(CurrencyList);
