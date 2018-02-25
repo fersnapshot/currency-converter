@@ -1,3 +1,4 @@
+// @flow
 import * as React from 'react';
 import { StatusBar, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
@@ -9,7 +10,7 @@ import { ClearButton } from '../components/Buttons';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
 
-import { swapCurrency, changeCurrencyAmount } from '../actions/currencies';
+import { swapCurrency, changeCurrencyAmount, getInitialConversion } from '../actions/currencies';
 
 type Props = {
   navigation: Object,
@@ -22,9 +23,14 @@ type Props = {
   isFetching: boolean,
   lastConvertedDate: Date,
   primaryColor: string,
+  getInitialConversion: Function,
 };
 
 class Home extends React.Component<Props> {
+  componentDidMount() {
+    this.props.getInitialConversion();
+  }
+
   handlePressBaseCurrency = () => {
     this.props.navigation.navigate('CurrencyList', { title: 'Base Currency', type: 'base' });
   };
@@ -119,4 +125,5 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
   swapCurrency,
   changeCurrencyAmount,
+  getInitialConversion,
 })(Home);
