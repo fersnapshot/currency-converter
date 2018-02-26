@@ -1,22 +1,20 @@
 import * as React from 'react';
 import { View, Platform, StatusBar } from 'react-native';
 import DropdownAlert from 'react-native-dropdownalert';
+import { connect } from 'react-redux';
 
 type Props = {
   children: React.Node,
+  tipo: string,
+  titulo: string,
+  mensaje: string,
 };
 
 class AlertProvider extends React.Component<Props> {
-  static childContextTypes = {
-    alertWithType: Function,
-    alert: Function,
-  };
-
-  getChildContext() {
-    return {
-      alert: (...args) => this.dropdown.alert(args),
-      alertWithType: (...args) => this.dropdown.alertWithType(...args),
-    };
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.tipo && nextProps.titulo && nextProps.mensaje) {
+      this.dropdown.alertWithType(nextProps.tipo, nextProps.titulo, nextProps.mensaje);
+    }
   }
 
   render() {
@@ -36,4 +34,14 @@ class AlertProvider extends React.Component<Props> {
   }
 }
 
-export default AlertProvider;
+function mapStateToProps(state) {
+  const { tipo, titulo, mensaje } = state.alertas;
+
+  return {
+    tipo,
+    titulo,
+    mensaje,
+  };
+}
+
+export default connect(mapStateToProps)(AlertProvider);

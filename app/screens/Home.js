@@ -9,9 +9,9 @@ import { InputWithButton } from '../components/TextInput';
 import { ClearButton } from '../components/Buttons';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
-import { connectAlert } from '../components/Alert';
 
 import { swapCurrency, changeCurrencyAmount, getInitialConversion } from '../actions/currencies';
+import { alertWithType } from '../actions/alertas';
 
 type Props = {
   navigation: Object,
@@ -35,7 +35,7 @@ class Home extends React.Component<Props> {
   }
 
   componentWillReceiveProps(nextProps: Props) {
-    if (nextProps.currencyError) {
+    if (nextProps.currencyError && this.props.currencyError !== nextProps.currencyError) {
       this.props.alertWithType('error', '¡Errorasso!', nextProps.currencyError);
     }
   }
@@ -136,4 +136,5 @@ export default connect(mapStateToProps, {
   swapCurrency,
   changeCurrencyAmount,
   getInitialConversion,
-})(connectAlert(Home));
+  alertWithType,
+})(Home);

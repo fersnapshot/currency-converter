@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { ScrollView, StatusBar, Platform, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // eslint-disable-line
+import { connect } from 'react-redux';
 
 import { ListItem, Separator } from '../components/List';
-import { connectAlert } from '../components/Alert';
+import { alertWithType } from '../actions/alertas';
 
 const ICON_PREFIX = Platform.OS === 'ios' ? 'ios' : 'md';
 const ICON_COLOR = '#868686';
@@ -47,4 +48,6 @@ class Options extends React.Component<Props> {
   }
 }
 
-export default connectAlert(Options);
+export default connect(null, {
+  alertWithType,
+})(Options);
