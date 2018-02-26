@@ -1,3 +1,5 @@
+App basada en el gran tutorial free 'degratis' de Spencer Carli (https://learn.handlebarlabs.com/p/react-native-basics-build-a-currency-converter) dónde conocí algunas librerías interesantes como 'react-native-dropdownalert' (aquí acabé usando redux en vez de context), 'react-native-extended-stylesheet' (muy útil para manejar los estilos) y 'redux-saga' (sigo prefiriendo redux-thunk :) REPO https://github.com/fersnapshot/currency-converter
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
@@ -117,6 +119,7 @@ REACT_NATIVE_PACKAGER_HOSTNAME='my-custom-ip-address-or-hostname' npm start
 ```
 
 Windows:
+
 ```
 set REACT_NATIVE_PACKAGER_HOSTNAME='my-custom-ip-address-or-hostname'
 npm start

@@ -1,5 +1,9 @@
 {
   "expo": {
-    "sdkVersion": "25.0.0"
+    "sdkVersion": "25.0.0",
+    "orientation": "portrait",
+    "privacy": "public",
+    "description":
+      "App basada en el gran tutorial free 'degratis' de Spencer Carli (https://learn.handlebarlabs.com/p/react-native-basics-build-a-currency-converter) dónde conocí algunas librerías interesantes como 'react-native-dropdownalert' (aquí acabé usando redux en vez de context), 'react-native-extended-stylesheet' (muy útil para manejar los estilos) y 'redux-saga' (sigo prefiriendo redux-thunk :) REPO https://github.com/fersnapshot/currency-converter"
   }
 }

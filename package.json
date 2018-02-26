@@ -37,7 +37,6 @@
   "dependencies": {
     "color": "^3.0.0",
     "expo": "^25.0.0",
-    "hoist-non-react-statics": "^2.5.0",
     "react": "16.2.0",
     "react-native": "0.52.0",
     "react-native-dropdownalert": "^3.3.0",
